@@ -1,0 +1,34 @@
+name: filter-repo POC
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prove:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install git-filter-repo
+        run: |
+          curl -O https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo
+          chmod +x git-filter-repo
+          mv git-filter-repo /usr/local/bin
+
+      - name: Cleanup target repo and push changes to remote
+        env:
+          SANDBOX_GARBAGE_DEPLOY_KEY: ${{ secrets.SANDBOX_GARBAGE_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SANDBOX_GARBAGE_DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          git config --global user.email "actions-runner@github.com"
+          git config --global user.name "Github Actions Workflow"
+          git clone git@github.com:dmays/sandbox-garbage.git sandbox-garbage
+          cd sandbox-garbage
+          git filter-repo --path binary --invert-paths --force
+          git push --force
