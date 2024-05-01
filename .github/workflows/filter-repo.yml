@@ -33,4 +33,4 @@ jobs:
           cd sandbox-garbage
           git filter-repo --path binary --invert-paths --force
           git remote add origin $REPO_ORIGIN
-          git push --force
+          git push --set-upstream origin main --force
