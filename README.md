@@ -1,4 +1,7 @@
 # bearded-robot
+## Github Actions Sandbox
+
+![image of a bearded robot courtesy of dall-e](assets/beared-robot.webp)
 
 
 ### filter-repo proof of concept
