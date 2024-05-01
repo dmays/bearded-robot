@@ -22,13 +22,15 @@ jobs:
       - name: Cleanup target repo and push changes to remote
         env:
           SANDBOX_GARBAGE_DEPLOY_KEY: ${{ secrets.SANDBOX_GARBAGE_DEPLOY_KEY }}
+          REPO_ORIGIN: git@github.com:dmays/sandbox-garbage.git
         run: |
           mkdir -p ~/.ssh
           echo "$SANDBOX_GARBAGE_DEPLOY_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           git config --global user.email "actions-runner@github.com"
           git config --global user.name "Github Actions Workflow"
-          git clone git@github.com:dmays/sandbox-garbage.git sandbox-garbage
+          git clone $REPO_ORIGIN sandbox-garbage
           cd sandbox-garbage
           git filter-repo --path binary --invert-paths --force
+          git remote add origin $REPO_ORIGIN
           git push --force
