@@ -23,7 +23,7 @@ jobs:
           OUTPUT_VAL: ${{ steps.set-the-output.outputs.SOME_VAL }}
           SCRIPT_NAME: ${{ env.OUTPUT_VAL }}/getcatfact.sh
         run: |
-          mkdir -p $SOME_VAL
+          mkdir -p $OUTPUT_VAL
           touch $SCRIPT_NAME
           echo "#!/bin/bash" >> $SCRIPT_NAME
           echo "curl https://catfact.ninja/fact -o catfact.json" >> $SCRIPT_NAME
