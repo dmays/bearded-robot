@@ -1,0 +1,38 @@
+name: Understand the environment better
+
+on:
+  workflow_dispatch:
+
+jobs:
+  understand:
+    runs-on: ubuntu-latest
+    steps:
+      - name: printenv
+        run: printenv
+
+      - name: what is GITHUB_ENV
+        run: echo $GITHUB_ENV
+
+      - name: set an output and use it later
+        id: set-the-output
+        run: echo "SOME_VAL=$HOME/.local/bin" >> "$GITHUB_OUTPUT"
+
+      - name: prepare to get cat fact
+        env:
+          OUTPUT_VAL: ${{ steps.set-the-output.outputs.SOME_VAL }}
+          SCRIPT_NAME: $OUTPUT_VAL/getcatfact.sh
+        run: |
+          echo "#!/bin/bash" > $SCRIPT_NAME
+          echo "curl https://catfact.ninja/fact -o catfact.json" >> $SCRIPT_NAME
+          chmod +x $SCRIPT_NAME
+
+      - name: modify the path for future steps
+        env:
+          OUTPUT_VAL: ${{ steps.set-the-output.outputs.SOME_VAL }}
+        run: echo "$OUTPUT_VAL" >> $GITHUB_PATH
+
+      - name: get cat fact
+        run: |
+          getcatfact.sh
+          ls -alH .
+          cat catfact.json
