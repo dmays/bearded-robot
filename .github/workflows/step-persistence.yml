@@ -1,0 +1,18 @@
+name: Understand Persistence Between Job Steps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  understand:
+    runs-on: ubuntu-latest
+    steps:
+      - name: workdir persists?
+        run: |
+          echo "pwd: $(pwd)"
+          mkdir myworkdir
+          cd myworkdir
+
+      - name: workdir answer
+        run: |
+          echo "pwd in next step: $(pwd)"
