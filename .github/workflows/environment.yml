@@ -20,7 +20,7 @@ jobs:
       - name: prepare to get cat fact
         env:
           OUTPUT_VAL: ${{ steps.set-the-output.outputs.SOME_VAL }}
-          SCRIPT_NAME: $OUTPUT_VAL/getcatfact.sh
+          SCRIPT_NAME: ${{ env.OUTPUT_VAL/getcatfact.sh
         run: |
           touch $SCRIPT_NAME
           echo "#!/bin/bash" >> $SCRIPT_NAME
