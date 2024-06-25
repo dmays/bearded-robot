@@ -22,7 +22,8 @@ jobs:
           OUTPUT_VAL: ${{ steps.set-the-output.outputs.SOME_VAL }}
           SCRIPT_NAME: $OUTPUT_VAL/getcatfact.sh
         run: |
-          echo "#!/bin/bash" > $SCRIPT_NAME
+          touch $SCRIPT_NAME
+          echo "#!/bin/bash" >> $SCRIPT_NAME
           echo "curl https://catfact.ninja/fact -o catfact.json" >> $SCRIPT_NAME
           chmod +x $SCRIPT_NAME
 
