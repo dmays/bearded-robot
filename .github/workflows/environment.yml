@@ -16,7 +16,7 @@ jobs:
       - name: set an output and use it later
         id: set-the-output
         run: |
-          echo "SOME_VAL=$WORKSPACE/scripts" >> "$GITHUB_OUTPUT"
+          echo "SOME_VAL=$GITHUB_WORKSPACE/scripts" >> "$GITHUB_OUTPUT"
 
       - name: prepare to get cat fact
         env:
