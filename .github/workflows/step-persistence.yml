@@ -16,3 +16,21 @@ jobs:
       - name: workdir answer
         run: |
           echo "pwd in next step: $(pwd)"
+
+      - name: changes to path?
+        run: |
+          echo "current PATH: $PATH"
+          export PATH=$PATH:/home/runner/work/bearded-robot/bin
+
+      - name: path changes answer
+        run: |
+          echo "current PATH: $PATH"
+
+      - name: simple environment variable
+        run: |
+          echo "setting MYVAR"
+          export MYVAR=42
+
+      - name: environment var answer
+        run: |
+          echo "MYVAR: $MYVAR"
