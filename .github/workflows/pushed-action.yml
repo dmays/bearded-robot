@@ -18,5 +18,9 @@ jobs:
         RUN_TRIVIAL: ${{ (github.event_name == 'schedule' && vars.RUN_TRIVIAL) || contains(inputs.run-trivial, 'true') }}
     steps:
       - name: Trivial Step
+        env:
+          VAR_RUN_TRIVIAL: ${{ vars.RUN_TRIVIAL }}
+          INPUT_RUN_TRIVIAL: ${{ inputs.run-trivial }}
         if: ${{ env.RUN_TRIVIAL }}
-        run: echo ${{ github }}
+        run: |
+          echo "Event name: ${{ github.event_name }}"
