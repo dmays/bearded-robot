@@ -1,0 +1,22 @@
+name: Pushed Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      run-trivial:
+        description: run trivial or what
+        type: boolean
+        default: true
+  push:
+  schedule:
+    - cron: 0/10 * * * 3
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    env:
+        RUN_TRIVIAL: ${{ (github.event_name == 'schedule' && vars.RUN_TRIVIAL) || contains(inputs.run-trivial, 'true') }}
+    steps:
+      - name: Trivial Step
+        if: ${{ env.RUN_TRIVIAL }}
+        run: echo ${{ github }}
