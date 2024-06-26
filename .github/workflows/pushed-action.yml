@@ -15,7 +15,7 @@ jobs:
   execute:
     runs-on: ubuntu-latest
     env:
-        RUN_TRIVIAL: ${{ (github.event_name == 'schedule' && env.RUN_TRIVIAL) || contains(inputs.run-trivial, 'true') }}
+        RUN_TRIVIAL: ${{ (github.event_name == 'schedule' && vars.RUN_TRIVIAL) || contains(inputs.run-trivial, 'true') }}
     steps:
       - name: Trivial Step
         if: ${{ env.RUN_TRIVIAL }}
